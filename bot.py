@@ -1,6 +1,12 @@
 import telebot
 from telebot import types
 from telebot.types import InlineKeyboardButton
+from tensorflow import keras
+import numpy as np
+from tensorflow.keras.layers import Dense, Flatten
+import csv
+from heapq import nlargest
+
 
 a = []
 token = "6709862201:AAFoJucC34d5ltXa-xrQ-GAI0K0Kiiorge8"
@@ -24,39 +30,25 @@ def get_text_messages(message):
         else:
             testtegs.append(i)  #   добавляем проверенный тег в массив, который после полной проверки уйдет в нейросеть для определения нужного изображения
 
-    #   здесь располагается код нейросети, который представлен в соседних файлах на GitHub
+    model1 = keras.models.load_model('model1')  #   Файл с полученными данными обученной нейросети (имеется в файлах репозитория на GitHub)
+    res = []
+
+    empty = []
+
+    for i in range(25963):
+        empty.append(0)
+    z = empty
+    for j in testtegs:
+        z[alltegs.index(j)] = 1
+    res.append(z)
+    res = model1.predict(np.array(res))
+    res = nlargest(10, res)
+    res = res[0]
+    
+
     bot.send_message(message.from_user.id, "Вот топ-10 подходящих ссылок на фото:")
 
-    #   здесь будут фото
-
-
-    if message.text == "Привет":
-        bot.send_message(message.from_user.id, "Привет, давай зарегистрируемся)")
-        bot.register_next_step_handler(message, start)
-    elif message.text == "/help":
-        bot.send_message(message.from_user.id, "Напиши привет")
-    else:
-        bot.send_message(message.from_user.id, "Я тебя не понимаю. Напиши /help.")
-
-
-
-
-
-# def get_age(message):
-#     global age
-#     while age == 0: #проверяем что возраст изменился
-#         try:
-#              age = int(message.text) #проверяем, что возраст введен корректно
-#         except Exception:
-#              bot.send_message(message.from_user.id, 'Цифрами, пожалуйста')
-#         keyboard = types.InlineKeyboardMarkup() #наша клавиатура
-#         key_yes: InlineKeyboardButton = types.InlineKeyboardButton(text='Да', callback_data='yes') #кнопка «Да»
-#         keyboard.add(key_yes) #добавляем кнопку в клавиатуру
-#         key_no= types.InlineKeyboardButton(text='Нет', callback_data='no')
-#         keyboard.add(key_no)
-#         question = 'Тебе '+str(age)+' лет, тебя зовут '+name+' '+surname+'?'
-#         bot.send_message(message.from_user.id, text=question, reply_markup=keyboard)
-
-
+    for i in range(10):
+        print(c[np.argmax(res[i:])])
 
 bot.polling(none_stop=True, interval=0)
