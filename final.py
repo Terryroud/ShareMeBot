@@ -5,7 +5,7 @@ import csv
 from heapq import nlargest
 
 a = []
-with open('llll.csv', newline='') as csvfile:
+with open('teggs.csv', newline='') as csvfile:
     spamreader = csv.reader(csvfile)
     for row in spamreader:
         a.append(row)
@@ -78,7 +78,7 @@ his = model.fit(np.array(x_val), np.array(y_val), epochs=60, validation_split=0.
 a = []
 
 
-with open('oooo.csv', newline='') as csvfile:
+with open('photos.csv', newline='') as csvfile:
     spamreader = csv.reader(csvfile)
     for row in spamreader:
         a.append(row)
