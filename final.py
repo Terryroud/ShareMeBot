@@ -92,7 +92,7 @@ for i in a:
 c = c[9:]
 
 model1 = keras.models.load_model('model1')
-y = ['Food', 'Cat']#я хз как это сделать ну типо в массив поместить тэги которые юзер хочет
+y = ['Food', 'Cat']
 res = []
 z = empty
 for j in y:
