@@ -16,14 +16,14 @@ for i in a:
     if len(i) != 0:
         b.append(i)
         c += i
-x = []#!!!!!!!!!!!!!!!!!!!!!!
+x = []
 for i in b:
     q = []
     for j in i:
         j = j.strip()
         q.append(j)
     x.append(q)
-d = []#!!!!!!!!!!!!!!!
+d = []
 for i in b:
     for j in i:
         j = j.strip()
